@@ -25,12 +25,16 @@ class Experience(object):
             r = random.random()
             data, priority, index = self.tree.find(r)
             priorities.append(priority)
-            weights.append((1./self.memory_size/priority)**-beta if priority > 1e-16 else 0)
+            weights.append((1./self.memory_size/priority)**beta if priority > 1e-16 else 0)
             indices.append(index)
             out.append(data)
             self.priority_update([index], [0]) # To avoid duplicating
+            
+        
         self.priority_update(indices, priorities) # Revert priorities
 
+        weights /= max(weights) # Normalize for stability
+        
         return out, weights, indices
 
     def priority_update(self, indices, priorities):
