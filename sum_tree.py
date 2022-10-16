@@ -1,7 +1,5 @@
 #! -*- coding:utf-8 -*-
 
-import sys
-import os
 import math
 
 class SumTree(object):
@@ -50,8 +48,8 @@ class SumTree(object):
 
         if value <= left:
             return self._find(value,2*index+1)
-        else:
-            return self._find(value-left,2*(index+1))
+
+        return self._find(value-left,2*(index+1))
         
     def print_tree(self):
         for k in range(1, self.tree_level+1):
